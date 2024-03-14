@@ -1,0 +1,24 @@
+name: CI
+on:
+  merge_group:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache Bun modules
+        uses: actions/cache@v3
+        id: cache-bun
+        with:
+          path: |
+            ~/.bun/install/cache
+          key: bun-${{ hashFiles('bun.lockb') }}
+      - uses: asdf-vm/actions/install@v2
+      - name: Bun Install
+        run: bun install
+      - name: Bun Run CDK
+        run: bun run index.ts
