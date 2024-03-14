@@ -1,5 +1,7 @@
 import { App, Stack } from 'aws-cdk-lib/core';
+import cdk from "aws-cdk-lib"
+console.log(cdk)
 
-new App();
+const app = new App();
 
-new Stack();
+new Stack(app);
